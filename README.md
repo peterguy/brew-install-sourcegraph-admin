@@ -34,7 +34,8 @@ Upgrades look hairy. Need to evaluate that more thoroughly
 resources requirements are large, which could lead to frustrating failures for someone who doesn't understand them. Maybe there's a way to gracefully scale down/back; remove features or something.
 
 # hare-brained ideas
-- make a "Desktop" version of SG that installs as an app, maybe with `brew install --cask`, or just by downloading a dmg.
+- make a "Desktop" version of SG that installs as an app, maybe with `brew install --cask`, and/or just by downloading a dmg.
+- publish LSIF and SCIP endpoints for commonly-used repositories and offer controlled API access to them. The benefit to this is that an individual SG install can benefit from access to those repos w/out accruing the costs of parsing and hosting them. Monetize that by offering a free tier of, say, 10k queries/month (/day/week, whatever), and charging for more access.
 
 # Notes
 Why do I need a github access token to access public repositories?
