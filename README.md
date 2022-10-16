@@ -34,8 +34,9 @@ Upgrades look hairy. Need to evaluate that more thoroughly
 resources requirements are large, which could lead to frustrating failures for someone who doesn't understand them. Maybe there's a way to gracefully scale down/back; remove features or something.
 
 # hare-brained ideas
-- make a "Desktop" version of SG that installs as an app, maybe with `brew install --cask`, or jsut by downloading a dmg.
+- make a "Desktop" version of SG that installs as an app, maybe with `brew install --cask`, or just by downloading a dmg.
 
 # Notes
-why do I need a github access token to access public repositories?
-What about Subversion hosts? Doesn't lok like Subversion is supported?
+Why do I need a github access token to access public repositories?
+
+What about Subversion hosts? Doesn't look like Subversion is supported?
