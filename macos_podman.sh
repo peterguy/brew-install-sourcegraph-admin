@@ -125,8 +125,14 @@ do-or-die "unable to set up Sourcegraph in ${HOME}" \
     do-or-die "unable to set up Sourcegraph in user's HOME directory" \
         git clone https://github.com/sourcegraph/deploy-sourcegraph-docker
 
+do-or-die "unable to find the Sourcegraph folder" \
+    pushd deploy-sourcegraph-docker
+
+do-or-die "unable to checkout the latest Sourcegraph version" \
+    git checkout 4.1
+
 do-or-die "unable to find the Sourcegraph docker-compose folder"\
-    pushd deploy-sourcegraph-docker/docker-compose
+    pushd docker-compose
 
 echo "OK"
 
