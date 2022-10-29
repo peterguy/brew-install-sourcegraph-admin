@@ -22,7 +22,9 @@ Podman may be an alternative for automated installs - it seems to be more CLI (a
 ## k3s
 ## k8s
 ## podman
-See [podman.md](podman.md) for the latest on using `podman`. Currently, the shell script [macos_podman.sh](macos_podman.sh) will download and install Sourcegraph 4.1 on macOS using `podman`.
+See [podman/README.md](podman/README.md) for the latest on using `podman`.
+
+Currently, the shell script [podman/macos/install.sh](podman/macos/install.sh) will download and install Sourcegraph 4.1 on macOS Intel into a `podman` machine. Other scripts in the [podman/macos](podman/macos/) directory will help manage and uninstall it (work in progress).
 
 # Obstacles
 
