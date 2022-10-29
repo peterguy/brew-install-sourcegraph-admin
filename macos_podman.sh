@@ -50,13 +50,13 @@ brew_prefix=$(brew --prefix)
 
 # NOTE this loop works because by happy chance all of the packages that need installing
 # have epynomous binaries. This is not always the case.
-for package in ${packages[@]}
+for package in "${packages[@]}"
 do
-    ${brew_prefix}/bin/${package} --version &>/dev/null || not_installed+=("${package}")
+    "${brew_prefix}/bin/${package}" --version &>/dev/null || not_installed+=("${package}")
 done
 [ ${#not_installed[@]} -gt 0 ] && {
     echo "Installing ${not_installed[*]}..."
-    brew install ${not_installed[@]}
+    brew install "${not_installed[@]}"
     # because brew installs symbolic links to the cellar,
     # the current shell won't find executables in PATH unless PATH is re-asserted
     export PATH=${PATH}
@@ -64,9 +64,9 @@ done
 # NOTE this loop works because by happy chance all of the packages that need installing
 # have epynomous binaries. This is not always the case.
 missing=0
-for package in ${packages[@]}
+for package in "${packages[@]}"
 do
-    ${brew_prefix}/bin/${package} --version &>/dev/null || {
+    "${brew_prefix}/bin/${package}" --version &>/dev/null || {
         echo "${package} is not installed" 1>&2
         missing=$((missing + 1))
     }
@@ -119,8 +119,11 @@ echo "OK"
 
 echo "Downloading Sourcegraph..."
 
+mkdir -p "${HOME}/.sourcegraph"
+
 do-or-die "unable to set up Sourcegraph in ${HOME}" \
-    pushd "${HOME}"
+    pushd "${HOME}/.sourcegraph"
+
 [ -d deploy-sourcegraph-docker ] || \
     do-or-die "unable to set up Sourcegraph in user's HOME directory" \
         git clone https://github.com/sourcegraph/deploy-sourcegraph-docker
@@ -128,7 +131,10 @@ do-or-die "unable to set up Sourcegraph in ${HOME}" \
 do-or-die "unable to find the Sourcegraph folder" \
     pushd deploy-sourcegraph-docker
 
-do-or-die "unable to checkout the latest Sourcegraph version" \
+do-or-die "unable to update Sourcegraph" \
+    git pull
+
+do-or-die "unable to get the latest Sourcegraph version" \
     git checkout 4.1
 
 do-or-die "unable to find the Sourcegraph docker-compose folder"\
@@ -144,8 +150,8 @@ socket=$(podman machine inspect "${sg_machine}" | jq -r '.[0].ConnectionInfo.Pod
 
 # if the unix socket doesn't work, set up for ssh
 # (the podman commands seem to use ssh by default, for some reason)
-ssh_port=$(podman machine inspect "${sg_machine}" | jq -r '.[0].SSHConfig.Port')
-ssh_identity=$(podman machine inspect "${sg_machine}" | jq -r '.[0].SSHConfig.IdentityPath')
+#ssh_port=$(podman machine inspect "${sg_machine}" | jq -r '.[0].SSHConfig.Port')
+#ssh_identity=$(podman machine inspect "${sg_machine}" | jq -r '.[0].SSHConfig.IdentityPath')
 
 # --url=ssh://root@localhost:${ssh_port}/run/podman/podman.sock --identity=${ssh_identity}
 # NOTE: don't appear to need the identity file
