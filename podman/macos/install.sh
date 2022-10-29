@@ -83,13 +83,14 @@ command -v podman-compose &>/dev/null || {
 
 echo "OK"
 
+echo "Bringing up a VM for Sourcegraph..."
+
 ### set up the sourcegraph admin machine, if not already set up
 sg_machine="sourcegraph-admin"
 podman machine inspect "${sg_machine}" &>/dev/null || {
     # TODO confirm machine size estimates - going with the low side for now
     # because this install is targetted at a user's machine
     # TODO re-create the machine if the specs are differnt from expected
-    echo "Bringing up a VM for Sourcegraph..."
     podman machine init \
         --cpus 4 \
         --disk-size 200 \
