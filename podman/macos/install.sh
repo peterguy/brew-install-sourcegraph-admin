@@ -162,6 +162,8 @@ socket=$(podman machine inspect "${sg_machine}" | jq -r '.[0].ConnectionInfo.Pod
 # (`podman volume --url=...` instead of `podman --url=... volume`)
 export CONTAINER_HOST=unix://${socket}
 
+echo "Launching Sourcegraph..."
+
 do-or-die "failed to start up sourcegraph admin" \
     podman-compose --project-name="${sg_machine}" up -d
 
